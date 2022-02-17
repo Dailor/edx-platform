@@ -39,6 +39,9 @@ jobs:
       - uses: actions/checkout@v2
       - name: start mongodb service
         run: |
+          echo "get status"
+          sudo /etc/init.d/mongodb status
+          echo "try starting"
           sudo /etc/init.d/mongodb start || {
             sudo ls -al /var/log/
             sudo grep -lIir mongo /var/log/
