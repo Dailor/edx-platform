@@ -44,7 +44,7 @@ jobs:
           echo
 
           echo "get status"
-          sudo /etc/init.d/mongodb status || { echo "(ignoring status failure, moving on)" }
+          sudo /etc/init.d/mongodb status || { echo "(ignoring status failure, moving on)"; }
           echo
 
           echo "try starting"
