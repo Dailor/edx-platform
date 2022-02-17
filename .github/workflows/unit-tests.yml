@@ -41,9 +41,11 @@ jobs:
         run: |
           echo "Check for lock files and similar"
           ls -Al /var/lib/mongodb/
+          echo
 
           echo "get status"
-          sudo /etc/init.d/mongodb status
+          sudo /etc/init.d/mongodb status || { echo "(ignoring status failure, moving on)" }
+          echo
 
           echo "try starting"
           sudo /etc/init.d/mongodb start || {
@@ -51,3 +53,4 @@ jobs:
             sudo grep -lIir mongo /var/log/
             exit 1
           }
+          echo
