@@ -54,3 +54,7 @@ jobs:
             exit 1
           }
           echo
+
+          echo "Looking again at lock files"
+          ls -Al /var/lib/mongodb/
+          echo
