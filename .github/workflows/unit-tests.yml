@@ -47,13 +47,29 @@ jobs:
           sudo /etc/init.d/mongodb status || { echo "(ignoring status failure, moving on)"; }
           echo
 
-          echo "try starting"
-          sudo /etc/init.d/mongodb start || {
-            sudo ls -al /var/log/
-            sudo grep -lIir mongo /var/log/
-            exit 1
-          }
+          echo "try starting 30 times, with delays"
+          for i in {1..30}; do
+            echo "start attempt $i"
+            if sudo /etc/init.d/mongodb start; then
+              echo "Success after $i tries"
+              break
+            else
+              sleep 5
+            fi
+          done
           echo
+
+          # echo "try starting"
+          # sudo /etc/init.d/mongodb start || {
+          #   echo "Failed to start. Any log files?"
+          #   sudo ls -al /var/log/mongodb
+          #   echo
+
+          #   echo "Any other log files mention mongo?"
+          #   sudo grep -lIir mongo /var/log/
+          #   exit 1
+          # }
+          # echo
 
           echo "Looking again at lock files"
           ls -Al /var/lib/mongodb/
