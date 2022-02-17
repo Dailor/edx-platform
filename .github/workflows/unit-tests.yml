@@ -39,8 +39,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: start mongodb service
         run: |
+          echo "Check for lock files and similar"
+          ls -Al /var/lib/mongodb/
+
           echo "get status"
           sudo /etc/init.d/mongodb status
+
           echo "try starting"
           sudo /etc/init.d/mongodb start || {
             sudo ls -al /var/log/
