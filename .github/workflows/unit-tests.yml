@@ -39,11 +39,17 @@ jobs:
       - uses: actions/checkout@v2
       - name: start mongodb service
         run: |
-          for i in {1..5}; do
+          maxtries=5
+          attempt=1
+          while true; do
             if sudo /etc/init.d/mongodb start; then
               break
+            elif [[ "$attempt" -ge "$maxtries" ]]; then
+              echo "Failed to start Mongo in $attempt tries, giving up."
+              exit 1
             else
-              echo "Failed to start Mongo, sleeping and trying again"
+              echo "Failed to start Mongo (attempt $attempt), sleeping and trying again"
+              (( attempt++ ))
               sleep 5
             fi
           done
