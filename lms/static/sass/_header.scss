@@ -4,15 +4,11 @@
   pages.
 */
 .global-header {
-  box-sizing: border-box;
   width: 100%;
-  position: relative;
-  overflow: hidden;
-  padding-bottom: $baseline/2;
-  border-bottom: 1px solid theme-color("primary");
-  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.1);
-  background: theme-color("inverse");
-  line-height: 1.5;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.35);
+  background: $header-main-bg;
+  border-bottom: 1px solid $header-mobile-border;
+  margin-bottom: $baseline;
 
   @include media-breakpoint-up(lg) {
     position: inherit;
@@ -22,38 +18,34 @@
     Logo and course identification block
   */
   .header-logo {
-    display: inline;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+    text-align: left;
+
+    @include media-breakpoint-down(md){
+      display: flex;
+      justify-content: center;
+    }
 
     a {
-      @include float(left);
-      @include margin($baseline*0.75, 0, 0, $baseline*2);
-
-      display: block;
-
       .logo {
-        @include float(left);
-
-        height: $header-logo-height;
+        height: $header-logo-header-height;
+        padding: $baseline/2 0;
+        margin-right: $baseline;
       }
 
       @include media-breakpoint-down(md) {
-        @include margin-left(50%);
-
-        height: $header-logo-height;
-        width: auto;
-
         .logo {
-          @include margin-left(-50%);
+          display: block;
         }
       }
     }
 
     .course-header {
-      @include float(left);
-      @include margin($baseline*0.8, 0, 0, $baseline);
-
+      margin: 0 $baseline*0.75 0;
       font-size: $font-size-sm;
-      color: theme-color("dark");
+      color: $header-primary;
       line-height: 1em;
       display: none;
 
@@ -86,78 +78,109 @@
   // Desktop styling
   @include media-breakpoint-up(lg) {
     .nav-links {
+      display: flex;
+      flex-grow: 1;
+
       .nav-item {
-        margin: 0 $baseline;
+        display: flex;
 
         a {
+          display: flex;
+          align-items: center;
           text-decoration: none;
+          color: white;
+
+          &:not([class]) {
+            padding-left: $baseline/2;
+            padding-right: $baseline/2;
+          }
+        }
+
+        .btn {
+          margin: $baseline/2 0;
+        }
+
+        //.register-btn {
+        //  margin-right: $baseline/4;
+        //}
+
+        // If user is authenticated
+        &:not(.not-authenticated .nav-item):hover {
+          background-color: $header-main-bg-dark;
+          transition: 200ms;
+        }
+
+        // If user is NOT authenticated
+        &:not(.already-authenticated .nav-item) a:hover {
+          background-color: $header-main-bg-dark;
+          transition: 200ms;
         }
       }
 
+      .main,
+      .secondary {
+        display: flex;
+      }
+
+      //.main:not(:last-child) {
+      //  margin-right: $baseline/4;
+      //}
+
       .main {
-        @include float(left);
-        @include margin($baseline, 0, 0, $baseline);
-
-        .nav-item {
-          @include float(left);
-        }
-
         .nav-tab {
           text-transform: none;
           padding: 0;
-          cursor: pointer;
           margin: 0;
+          cursor: pointer;
 
           a {
-            color: theme-color("secondary");
-            padding: $baseline*0.35 $baseline*1.25 19px;
+            color: $header-primary;
+            padding: $baseline/2 $baseline*0.8 $baseline/2;
             font-weight: $font-weight-normal;
-            display: inline-block;
-            margin-bottom: -1*$baseline/2;
             border-bottom: 4px solid transparent;
             cursor: pointer;
 
             &.active,
             &:hover {
               border-bottom-style: solid;
-              border-bottom-color: theme-color("primary");
+              border-bottom-color: $header-primary;
             }
 
             &:hover {
               cursor: pointer;
-              border-bottom-color: theme-color("primary");
+              border-bottom-color: $header-primary;
             }
           }
         }
       }
 
       .secondary {
-        @include float(right);
-        @include margin($baseline*0.75, $baseline*2, 0, 0);
+        margin-left: auto;
 
         // All navigation items
         .nav-item {
           font-size: $font-size-base;
-          display: inline-block;
-          padding: $baseline/2 0 0;
-          margin: 0 $baseline/2;
+          padding-left: $baseline/2;
+          padding-right: $baseline/2;
 
           &.nav-item-dropdown {
+            position: relative;
+
             padding: 0;
             margin: 0;
           }
 
           a {
-            color: theme-color("dark");
+            color: $header-primary;
             font-weight: $font-weight-normal;
           }
         }
 
 
-        // Sign in, Register and Shopping Cart buttons
+        //Sign in, Register and Shopping Cart buttons
         .btn {
-          border: 1px solid theme-color("primary");
-          padding: $baseline/4 $baseline;
+          border: 1px solid $header-primary;
+          //padding: $baseline/4 $baseline;
           border-radius: $baseline/4;
           cursor: pointer;
           text-decoration: none;
@@ -165,68 +188,73 @@
 
         a.sign-in-btn,
         .nav-item a.shopping-cart {
-          background-color: theme-color("primary");
-          color: theme-color("inverse");
-          border: 1px solid theme-color("inverse");
+          //background-color: $header-primary;
+          color: $header-primary;
+          border: 1px solid $header-primary;
           font-weight: $font-weight-normal;
-          padding: $baseline/4 $baseline;
+          padding: $baseline/2 $baseline;
 
           &:hover {
-            background-color: theme-color("inverse");
-            color: theme-color("primary");
-            border-color: theme-color("primary");
+            //background-color: $header-main-bg;
+            color: $header-primary;
+            border-color: $header-primary;
           }
         }
 
         a.register-btn {
-          background: theme-color("inverse");
-          color: theme-color("primary");
+          //background: $header-main-bg;
+          color: $header-primary;
           font-weight: $font-weight-normal;
+          padding: $baseline/2 $baseline;
 
           &:hover {
-            background-color: theme-color("primary");
-            color: theme-color("inverse");
+            //background-color: theme-color("primary");
+            color: $header-primary;
           }
         }
 
         // User information
         .user-image-frame {
-          border: 1px solid theme-color("light");
-          margin: -1*$baseline/2 $baseline/4;
+          margin-left: $baseline/2;
+          margin-right: $baseline;
           border-radius: $baseline/4;
           width: $header-user-image-size;
         }
 
         // Dropdown behavior
         .toggle-user-dropdown {
+          display: flex;
           padding: $baseline/2;
           text-decoration: none;
           cursor: pointer;
+
+          span {
+            display: flex;
+            align-items: center;
+            color: white;
+          }
         }
 
         .dropdown-user-menu {
-          border: 1px solid theme-color("secondary");
+          border: 1px solid $header-mobile-border;
           position: absolute;
-          background-color: theme-color("inverse");
-          color: theme-color("secondary");
-
-          @include right(30px);
-
-          top: 55px;
+          background-color: $header-main-bg;
+          color: white;
+          top: 100%;
           z-index: 10;
 
           .dropdown-item {
+            display: flex;
             cursor: pointer;
             overflow: hidden;
             padding: 0;
 
             &:hover {
-              color: theme-color("dark");
-              background-color: theme-color("light");
+              background-color: $header-main-bg-dark;
             }
 
             &:not(:last-child) {
-              border-bottom: 1px solid theme-color("light");
+              border-bottom: 1px solid $header-mobile-border;
             }
 
             a {
@@ -235,11 +263,11 @@
               display: inline-block;
               width: 100%;
 
-              &:focus {
-                outline: none;
-                color: theme-color("dark");
-                background-color: theme-color("light");
-              }
+              //&:focus {
+              //  outline: none;
+              //  color: theme-color("dark");
+              //  background-color: theme-color("light");
+              //}
             }
           }
         }
@@ -251,19 +279,23 @@
     }
   }
 
+  .main-header {
+    display: flex;
+    padding: 0;
+
+    @include media-breakpoint-down(md) {
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
   // Responsive styling for mobile
   @include media-breakpoint-down(md) {
-    .main-header {
-      height: $header-logo-height;
-      position: inherit;
-    }
-
     // Display the menu icon and allow for transition to an X on click
     .hamburger-menu {
       @include left($baseline);
 
       position: absolute;
-      top: $baseline*0.9;
       width: 30px;
       height: 20px;
       padding-bottom: $baseline/4;
@@ -278,7 +310,7 @@
         position: absolute;
         height: 5px;
         width: 100%;
-        background: $gray-600;
+        background: $header-primary;
         opacity: 1;
         left: 0;
         -webkit-transform: rotate(0deg);
@@ -302,7 +334,6 @@
 
       &.open .line {
         &:nth-child(1) {
-          top: 18px;
           width: 0%;
           left: 50%;
         }
@@ -340,8 +371,7 @@
   Mobile menu styling
 */
 .mobile-menu {
-  border-top: 1px solid theme-color('primary');
-  margin: $baseline*1.25 0 -0.5*$baseline;
+  border-top: 1px solid $header-mobile-border;
 
   @include media-breakpoint-up(lg) {
     display: none !important;
@@ -361,18 +391,19 @@
         text-decoration: none;
         outline: none;
         display: block;
-        background-color: theme-color('inverse');
+        color: white;
+        background-color: $header-main-bg;
         border-radius: 0;
         width: 100%;
         padding: $baseline*0.6 $baseline;
-        border-bottom: 1px solid theme-color('light');
+        border-bottom: 1px solid $header-mobile-border;
         text-align: left;
         cursor: pointer;
 
         &:hover,
         &:focus {
-          background-color: $gray-600;
-          color: theme-color('inverse');
+          background-color: $header-main-bg-dark;
+          transition: 200ms;
         }
 
         &::after {

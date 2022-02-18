@@ -5,7 +5,26 @@
 $learn-more-horizontal-position: calc(50% - 100px); // calculate the left position for "LEARN MORE" content
 
 .courses-container {
-  @include outer-container;
+  //@include outer-container;
+  @include media-breakpoint-down(md) {
+    padding-left: $baseline;
+    padding-right: $baseline;
+  }
+
+  background: rgba(226, 232, 240, 1);
+
+  .block-h1 {
+    text-align: left;
+    font-weight: 700;
+    margin-bottom: 0;
+
+    @include font-size(42);
+  }
+
+  .highlighted-courses {
+    margin-bottom: 0;
+    padding-top: $baseline;
+  }
 
   .courses {
     @include row();
@@ -32,6 +51,31 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       box-shadow: 0 1px 10px 0 $black-t0, inset 0 0 0 1px $white-t3;
       background: $body-bg;
       width: 100%;
+
+      .course-image {
+        position: relative;
+
+        .course-organization-logo {
+          position: absolute;
+          padding: 5px;
+          height: 50px;
+          width: 100px;
+          top: 70%;
+          left: 10%;
+          z-index: 101;
+          background: white;
+          border-radius: $course-border-radius;
+          overflow: hidden;
+          -webkit-box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+          -moz-box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+
+          img {
+            width: 100px;
+            height: 50px;
+          }
+        }
+      }
 
       .course-image .cover-image {
         height: $course-image-height;
@@ -81,11 +125,19 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       }
 
       .course-info {
+        display: flex;
+        flex-direction: column;
         height: $course-info-height;
         font-family: $font-family-sans-serif;
 
         h2 {
           font-family: $font-family-sans-serif;
+        }
+
+        .course-name {
+          flex-grow: 1;
+          margin-top: $baseline;
+          margin-bottom: 0;
         }
 
         .course-organization,
@@ -120,15 +172,16 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
 
           @extend %t-icon4;
 
-          margin: ($baseline*0.25) 0 ($baseline*1.75) 0;
+          //margin-bottom: ;
           padding: 0 ($baseline*0.75);
-          height: $course-title-height;
-          color: $link-color;
+          font-weight: 900;
+          color: black;
         }
 
         .course-date {
           @include line-height(14);
 
+          margin-bottom: $baseline*0.25;
           padding: ($baseline/10) ($baseline*0.75);
         }
       }
@@ -136,18 +189,22 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
       // STATE: hover and focus
       &:hover,
       &:focus {
+        -webkit-box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+        -moz-box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.2);
+
         .cover-image {
-          &::before {
-            @include transition(opacity $tmg-f2 ease-out $tmg-f2);
-
-            opacity: 0.6;
-          }
-
-          .learn-more {
-            @include transition(opacity $tmg-f2 ease-out $tmg-f2);
-
-            opacity: 1;
-          }
+          //&::before {
+          //  @include transition(opacity $tmg-f2 ease-out $tmg-f2);
+          //
+          //  opacity: 0.6;
+          //}
+          //
+          //.learn-more {
+          //  @include transition(opacity $tmg-f2 ease-out $tmg-f2);
+          //
+          //  opacity: 1;
+          //}
         }
       }
     }
@@ -175,7 +232,9 @@ $learn-more-horizontal-position: calc(50% - 100px); // calculate the left positi
 
 /* Set homepage specific media queries */
 .home .courses-container .courses .courses-listing .courses-listing-item {
-  @include rtl() { $layout-direction: "RTL"; }
+  @include rtl() {
+    $layout-direction: "RTL";
+  }
 
   @include fill-parent();
 

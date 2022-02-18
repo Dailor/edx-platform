@@ -63,8 +63,8 @@ from six import string_types
   <%block name="course_about_header">
   <header class="course-profile">
     <div class="intro-inner-wrapper">
-      <div class="table">
-      <section class="intro">
+      <div class="row">
+      <section class="intro col-md-7">
         <div class="heading-group">
           <h1>
             ${course.display_name_with_default}
@@ -123,14 +123,14 @@ from six import string_types
 
       </section>
       % if get_course_about_section(request, course, "video"):
-      <a href="#video-modal" class="media" rel="leanModal">
+      <a href="#video-modal" class="media col-md-5" rel="leanModal">
         <div class="hero">
           <img src="${course_image_urls['large']}" alt="" />
           <div class="play-intro"></div>
         </div>
       </a>
       %else:
-      <div class="media">
+      <div class="media col-md-5">
         <div class="hero">
           <img src="${course_image_urls['large']}" alt="" />
         </div>

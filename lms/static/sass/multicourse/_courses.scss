@@ -46,10 +46,12 @@ $facet-background-color: #007db8;
   }
 
   .courses-container {
-    @include padding(($baseline*2), ($baseline/2), 0, ($baseline/2));
+    @include padding($baseline, ($baseline/2), 0, ($baseline/2));
 
     .courses {
       @include rtl() { $layout-direction: "RTL"; }
+
+      float: none !important;
 
       .courses-listing .courses-listing-item {
         @include fill-parent();
@@ -589,8 +591,8 @@ $facet-background-color: #007db8;
 // ====================
 .find-courses,
 .university-profile {
-  background: $gray-l5;
-  padding-bottom: ($baseline*3);
+  //background: $gray-l5;
+  //padding-bottom: ($baseline*3);
 
 
   section.message {

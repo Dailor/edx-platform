@@ -3,7 +3,7 @@
   .courses {
     @include clearfix();
 
-    padding: ($baseline*2) 0 ($baseline*0.75);
+    padding: $baseline 0;
 
     .university-column {
       width: flex-grid(4);
@@ -20,7 +20,8 @@
     .course {
       background: $body-bg;
       border: 1px solid $border-color-1;
-      border-radius: 2px;
+      border-radius: $course-border-radius;
+      overflow: hidden;
       box-sizing: border-box;
       box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.15), inset 0 0 0 1px rgba(255, 255, 255, 0.9);
       margin-bottom: ($baseline*1.5);

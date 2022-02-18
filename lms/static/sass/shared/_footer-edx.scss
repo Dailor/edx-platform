@@ -6,8 +6,10 @@
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/mixins/breakpoints';
 
-$edx-footer-link-color: $primary;
-$edx-footer-bg-color: rgb(252, 252, 252);
+$edx-footer-link-color: white !important;
+$edx-footer-h2-color: white !important;
+$edx-footer-bg-color: rgba(77, 93, 103, 1) !important;
+$edx-footer-link-hover-color: #f56565 !important;
 
 // Aggressively scoped for Drupal
 // ==============================
@@ -37,6 +39,15 @@ footer#footer-edx-v3 {
     padding-left: 15px;
   }
 
+  a:not(.social-links) {
+    color: $edx-footer-link-color;
+
+    &:hover {
+      color: $edx-footer-link-hover-color;
+      text-decoration: none;
+    }
+  }
+
   a.social-links {
     font-size: 35px;
   }
@@ -63,8 +74,6 @@ footer#footer-edx-v3 {
   .row {
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
   }
 
 
@@ -112,19 +121,17 @@ footer#footer-edx-v3 {
   h2.heading {
     font-weight: 600;
     padding: $baseline*0.25 0;
-    color: $lighter-base-font-color;
+    color: $edx-footer-h2-color;
 
     @include margin-left(8px);
   }
 
   ul.clear-margins {
     list-style: outside none none;
-    padding-bottom: $baseline*0.75;
     margin-top: $baseline*0.75;
 
     @include margin-left(8px);
 
-    border-bottom: 1px solid $courseware-button-border-color;
     line-height: 1.5;
   }
 
@@ -161,7 +168,7 @@ footer#footer-edx-v3 {
     @include margin-left(5px);
 
     img {
-      height: $header-logo-height*1.05;
+      height: $header-logo-footer-height;
     }
   }
 
@@ -416,14 +423,10 @@ footer#footer-edx-v3 {
     }
 
     .first-div-border div div {
-      border-bottom: 1px solid $courseware-button-border-color;
-
       @include margin-left(10%);
     }
 
     .second-div-border div div {
-      border-bottom: 1px solid $courseware-button-border-color;
-
       @include margin-left(10%);
     }
 
@@ -434,7 +437,7 @@ footer#footer-edx-v3 {
     }
 
     .fourth-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .site-details {
@@ -549,13 +552,11 @@ footer#footer-edx-v3 {
     }
 
     .second-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
-
       border-bottom: none;
     }
 
     .third-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     padding: $baseline $baseline*0.5;
@@ -655,15 +656,15 @@ footer#footer-edx-v3 {
     }
 
     .second-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .third-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .fourth-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
 
@@ -749,7 +750,7 @@ footer#footer-edx-v3 {
     }
 
     .first-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .column-1 {
@@ -780,15 +781,15 @@ footer#footer-edx-v3 {
     }
 
     .second-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .third-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .fourth-div-border {
-      @include border-left(1px solid $courseware-button-border-color);
+      //
     }
 
     .footer-logo {

@@ -7,10 +7,11 @@ from django.urls import reverse
 
 from openedx.core.djangolib.markup import HTML, Text
 %>
+<%namespace name="main" file="main.html"/>
 
 <main id="main" aria-label="Content" tabindex="-1">
     <section class="home">
-      <header>
+      <header class="container">
         <div class="outer-wrapper">
           <div class="title">
             <div class="heading-group">
@@ -69,3 +70,7 @@ from openedx.core.djangolib.markup import HTML, Text
   $(window).load(function() {$('#signup_action').trigger("click");});
 </script>
 % endif
+<script>
+    $(window).load(function() {$('#content').removeClass('content-wrapper');});
+</script>
+${main.remove_content_wrapper()}

@@ -234,3 +234,10 @@ from common.djangoapps.pipeline_mako import render_require_js_path_overrides
     next=urlquote_plus(login_redirect_url if login_redirect_url else request.path)
   ) if (login_redirect_url or (request and not request.path.startswith("/logout"))) else ""
 }</%def>
+
+
+<%def name="remove_content_wrapper()">
+    <script>
+        $(window).load(function() {$('#content').removeClass('content-wrapper');});
+    </script>
+</%def>

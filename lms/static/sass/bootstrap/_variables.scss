@@ -11,5 +11,23 @@ $baseline: 20px !default;
 // #COMPONENT SIZING
 // ----------------------------
 $header-logo-width: 60px !default;
+$header-logo-header-height: 34px !default;
+$header-logo-footer-height: 26px !default;
 $header-logo-height: 40px !default;
 $header-user-image-size: 40px !default;
+
+// IITU header
+$header-primary: white;
+//$header-height: 55px;
+//$header-secondary:
+$header-main-bg: rgba(177, 4, 14, 1);
+$header-main-bg-dark: rgba(126, 25, 14, 49);
+$header-mobile-border: rgba(126, 25, 14, 1);
+
+// Index
+$IITU-INDEX-BG: "/static/iitu-theme/images/bg-index.jpg";
+
+// Courses in list
+$course-border-radius: 6px;
+
+// IITU footer

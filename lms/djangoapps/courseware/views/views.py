@@ -135,6 +135,8 @@ from xmodule.modulestore.exceptions import ItemNotFoundError, NoPathToItem
 from xmodule.tabs import CourseTabList
 from xmodule.x_module import STUDENT_VIEW
 
+from organizations.api import get_organizations
+
 from ..context_processor import user_timezone_locale_prefs
 from ..entrance_exams import user_can_skip_entrance_exam
 from ..module_render import get_module, get_module_by_usage_id, get_module_for_descriptor
@@ -142,7 +144,6 @@ from ..tabs import _get_dynamic_tabs
 from ..toggles import COURSEWARE_OPTIMIZED_RENDER_XBLOCK
 
 log = logging.getLogger("edx.courseware")
-
 
 # Only display the requirements on learner dashboard for
 # credit and verified modes.
@@ -272,6 +273,8 @@ def courses(request):
     """
     courses_list = []
     course_discovery_meanings = getattr(settings, 'COURSE_DISCOVERY_MEANINGS', {})
+    organizations = {organization['name']: organization['logo'] for organization in get_organizations()}
+
     if not settings.FEATURES.get('ENABLE_COURSE_DISCOVERY'):
         courses_list = get_courses(request.user)
 
@@ -288,6 +291,7 @@ def courses(request):
         "courseware/courses.html",
         {
             'courses': courses_list,
+            'organizations': organizations,
             'course_discovery_meanings': course_discovery_meanings,
             'programs_list': programs_list,
         }
@@ -452,6 +456,7 @@ def course_info(request, course_id):
     Display the course's info.html, or 404 if there is no such course.
     Assumes the course_id is in a valid format.
     """
+
     # TODO: LEARNER-611: This can be deleted with Course Info removal.  The new
     #    Course Home is using its own processing of last accessed.
     def get_last_accessed_courseware(course, request, user):

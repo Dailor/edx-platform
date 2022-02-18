@@ -76,6 +76,8 @@ from common.djangoapps.util.db import outer_atomic
 from common.djangoapps.util.json_request import JsonResponse
 from xmodule.modulestore.django import modulestore
 
+from organizations.api import get_organizations
+
 log = logging.getLogger("edx.student")
 
 AUDIT_LOG = logging.getLogger("audit")
@@ -122,6 +124,7 @@ def index(request, extra_context=None, user=AnonymousUser()):
         extra_context = {}
 
     courses = get_courses(user)
+    organizations = {organization['name']: organization['logo'] for organization in get_organizations()}
 
     if configuration_helpers.get_value(
         "ENABLE_COURSE_SORTING_BY_START_DATE",
@@ -131,7 +134,10 @@ def index(request, extra_context=None, user=AnonymousUser()):
     else:
         courses = sort_by_announcement(courses)
 
-    context = {'courses': courses}
+    context = dict(
+        courses=courses,
+        organizations=organizations
+    )
 
     context['homepage_overlay_html'] = configuration_helpers.get_value('homepage_overlay_html')
 
