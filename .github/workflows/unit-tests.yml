@@ -39,38 +39,11 @@ jobs:
       - uses: actions/checkout@v2
       - name: start mongodb service
         run: |
-          echo "Check for lock files and similar"
-          ls -Al /var/lib/mongodb/
-          echo
-
-          echo "get status"
-          sudo /etc/init.d/mongodb status || { echo "(ignoring status failure, moving on)"; }
-          echo
-
-          echo "try starting 30 times, with delays"
-          for i in {1..30}; do
-            echo "start attempt $i"
+          for i in {1..5}; do
             if sudo /etc/init.d/mongodb start; then
-              echo "Success after $i tries"
               break
             else
+              echo "Failed to start Mongo, sleeping and trying again"
               sleep 5
             fi
           done
-          echo
-
-          # echo "try starting"
-          # sudo /etc/init.d/mongodb start || {
-          #   echo "Failed to start. Any log files?"
-          #   sudo ls -al /var/log/mongodb
-          #   echo
-
-          #   echo "Any other log files mention mongo?"
-          #   sudo grep -lIir mongo /var/log/
-          #   exit 1
-          # }
-          # echo
-
-          echo "Looking again at lock files"
-          ls -Al /var/lib/mongodb/
-          echo
