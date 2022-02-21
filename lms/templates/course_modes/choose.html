@@ -1,15 +1,12 @@
 <%page expression_filter="h"/>
 <%inherit file="../main.html" />
-<%namespace name='static' file='/static_content.html'/>
 <%!
 from django.utils.translation import ugettext as _
 from django.urls import reverse
-from opaque_keys.edx.keys import CourseKey
-from openedx.core.djangolib.js_utils import dump_js_escaped_json, js_escaped_string
+from openedx.core.djangolib.js_utils import js_escaped_string
 from openedx.core.djangolib.markup import HTML, Text
 %>
 
-<%namespace name='static' file='/static_content.html'/>
 <%block name="bodyclass">register verification-process step-select-track</%block>
 <%block name="pagetitle">
     ${_("Enroll In {course_name} | Choose Your Track").format(course_name=course_name)}
@@ -54,13 +51,6 @@ from openedx.core.djangolib.markup import HTML, Text
         });
     </script>
 </%block>
-<%static:webpack entry="Currency">
-    new Currency();
-</%static:webpack>
-
-<%block name="header_extras">
-    <link rel="stylesheet" type="text/css" href="${static.url('paragon/static/paragon.min.css')}" />
-</%block>
 
 <%block name="content">
     % if error:
@@ -76,8 +66,6 @@ from openedx.core.djangolib.markup import HTML, Text
             </div>
         </div>
     %endif
-
-    <div id="currency_data" value="${currency_data}"></div>
 
     <div class="container">
         <section class="wrapper">
@@ -120,8 +108,6 @@ from openedx.core.djangolib.markup import HTML, Text
                                                                 <li>${Text(_("{b_start}Graded Assignments: {b_end}Build your skills through graded assignments and projects.")).format(**b_tag_kwargs)}</li>
                                                             % endif
                                                             <li>${Text(_("{b_start}Easily Sharable: {b_end}Add the certificate to your CV or resumé, or post it directly on LinkedIn.")).format(**b_tag_kwargs)}</li>
-                                                            ## Translators: This string will not be used in Open edX installations.
-                                                            <li>${Text(_("{b_start}Support our Mission: {b_end}EdX relies on verified certificates to help fund affordable education to everyone globally.")).format(**b_tag_kwargs)}</li>
                                                         </ul>
                                                     % else:
                                                         <h4>${_("Benefits of a Verified Certificate")}</h4>
@@ -134,18 +120,20 @@ from openedx.core.djangolib.markup import HTML, Text
                                                 </div>
                                                 <div class="copy-inline list-actions">
                                                     <ul class="list-actions">
-                                                        <%include file='_upgrade_button.html' args='content_gating_enabled=content_gating_enabled, course_duration_limit_enabled=course_duration_limit_enabled, min_price=min_price, price_before_discount=price_before_discount' />
+                                                        <%include file='_upgrade_button.html' args='content_gating_enabled=content_gating_enabled, course_duration_limit_enabled=course_duration_limit_enabled, currency=currency, currency_symbol=currency_symbol, min_price=min_price, price_before_discount=price_before_discount' />
                                                     </ul>
                                                 </div>
                                             </div>
                                         </p>
                                     </div>
                                     % else:
-                                    % if content_gating_enabled or course_duration_limit_enabled:
-                                        <h4 class="title">${_("Pursue the Verified Track")}</h4>
-                                    % else:
-                                        <h4 class="title">${_("Pursue a Verified Certificate")}</h4>
-                                    % endif
+                                        % if content_gating_enabled or course_duration_limit_enabled:
+                                            <h4 class="title">${_("Pursue the Verified Track")}</h4>
+                                        % else:
+                                            <h4 class="title">${_("Pursue a Verified Certificate")}</h4>
+                                        % endif
+
+
                                     <div class="copy">
                                         <p>${_("Highlight your new knowledge and skills with a verified certificate. Use this valuable credential to improve your job prospects and advance your career, or highlight your certificate in school applications.")}</p>
                                         <p>
@@ -157,11 +145,10 @@ from openedx.core.djangolib.markup import HTML, Text
                                                             % if course_duration_limit_enabled:
                                                                 <li>${Text(_("{b_start}Unlimited Course Access: {b_end}Learn at your own pace, and access materials anytime to brush up on what you've learned.")).format(**b_tag_kwargs)}</li>
                                                             % endif
-                                                            % if content_gating_enabled:                                                                
+                                                            % if content_gating_enabled:
                                                                 <li>${Text(_("{b_start}Graded Assignments: {b_end}Build your skills through graded assignments and projects.")).format(**b_tag_kwargs)}</li>
                                                             % endif
                                                             <li>${Text(_("{b_start}Easily Sharable: {b_end}Add the certificate to your CV or resumé, or post it directly on LinkedIn.")).format(**b_tag_kwargs)}</li>
-                                                            <li>${Text(_("{b_start}Support our Mission: {b_end}EdX relies on verified certificates to help fund affordable education to everyone globally.")).format(**b_tag_kwargs)}</li>
                                                         </ul>
                                                     % else:
                                                         <h4>${_("Benefits of a Verified Certificate")}</h4>
@@ -169,19 +156,16 @@ from openedx.core.djangolib.markup import HTML, Text
                                                             <li>${Text(_("{b_start}Official: {b_end}Receive an instructor-signed certificate with the institution's logo")).format(**b_tag_kwargs)}</li>
                                                             <li>${Text(_("{b_start}Easily shareable: {b_end}Add the certificate to your CV or resumé, or post it directly on LinkedIn")).format(**b_tag_kwargs)}</li>
                                                             <li>${Text(_("{b_start}Motivating: {b_end}Give yourself an additional incentive to complete the course")).format(**b_tag_kwargs)}</li>
-                                                            <li>${Text(_("{b_start}Support our Mission: {b_end} EdX, a non-profit, relies on verified certificates to help fund free education for everyone globally")).format(**b_tag_kwargs)}</li>
                                                         </ul>
                                                     % endif
-                                                    <ul>
-                                                    </ul>
                                                 </div>
                                                 <div class="copy-inline list-actions">
                                                     <ul class="list-actions">
-                                                        <%include file='_upgrade_button.html' args='content_gating_enabled=content_gating_enabled, course_duration_limit_enabled=course_duration_limit_enabled, min_price=min_price, price_before_discount=price_before_discount' />
+                                                        <%include file='_upgrade_button.html' args='content_gating_enabled=content_gating_enabled, course_duration_limit_enabled=course_duration_limit_enabled, currency=currency, currency_symbol=currency_symbol, min_price=min_price, price_before_discount=price_before_discount' />
                                                     </ul>
                                                 </div>
                                             </div>
-                                        </p>
+                                         </p>
                                     </div>
                                     % endif
                                 </div>
